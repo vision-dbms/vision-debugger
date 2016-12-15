@@ -1,0 +1,22 @@
+
+################################################################
+####  currentTask Patch
+################################################################
+
+Object defineMethod: [ | currentTask |
+    _currentTask caller caller asDebugModelObject
+];
+
+Object defineMethod: [ | displayCurrentStack |
+    ^self currentTask displayInfoHeading displayCallers cleanModel;
+    ^self
+];
+
+################################################################
+####  stopHere
+################################################################
+
+Object defineMethod: [ | stopHere |
+    currentTask caller unitNextStep
+];
+

@@ -1,0 +1,335 @@
+
+Object defineMethod: [ | displayTraceMarker |
+    newLine print; "+++ " print;
+    ^self print
+];
+
+################################################################
+####  Debug
+################################################################
+
+Debug defineMethod: [ | suspensions |
+    ModelObject Suspension masterList
+];
+
+Debug defineMethod: [ | subscriptions |
+    ModelObject Subscription masterList
+];
+
+################################################################
+####  Debug ModelObject
+################################################################
+
+Debug ModelObject defineMethod: [ | masterList |
+    cleanModel; ^super masterList
+];
+
+
+################################################################
+####  Debug ModelObject CUnit
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject CUnit defineMethod: [ | channel |
+    representative channelIndex asOpenVisionChannel
+];
+
+Debug ModelObject CUnit defineMethod: [ | creator |
+    _creator else: [
+	:_creator <- ^self getModelObject: _representative creator
+    ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | isInterior |
+    _representative isInterior
+];
+
+Debug ModelObject CUnit defineMethod: [ | stageName |
+    ^self getStringConstant: _representative stageName
+];
+
+Debug ModelObject CUnit defineMethod: [ | statusName |
+    ^self stageName
+];
+
+Debug ModelObject CUnit defineMethod: [ | unrunChildCount |
+    _representative unrunChildCount
+];
+
+Debug ModelObject CUnit defineMethod: [ | unrunExteriorChildCount |
+    _representative unrunExteriorChildCount
+];
+
+Debug ModelObject CUnit defineMethod: [ | unrunInteriorChildCount |
+    _representative unrunInteriorChildCount
+];
+
+
+################
+####  Subscriptions
+################
+
+Debug ModelObject CUnit defineMethod: [ | contextEntrySubscription |
+    ^self getModelObject: ^self _representative contextEntrySubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextExitSubscription |
+    ^self getModelObject: ^self _representative contextExitSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextStepSubscription |
+    ^self getModelObject: ^self _representative contextStepSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextAccessSubscription |
+    ^self getModelObject: ^self _representative contextAccessSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextFaultSubscription |
+    ^self getModelObject: ^self _representative contextFaultSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextInterruptSubscription |
+    ^self getModelObject: ^self _representative contextInterruptSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextSNFSubscription |
+    ^self getModelObject: ^self _representative contextSNFSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitChildEntrySubscription |
+    ^self getModelObject: ^self _representative unitChildEntrySubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitExteriorChildEntrySubscription |
+    ^self getModelObject: ^self _representative unitExteriorChildEntrySubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitInteriorChildEntrySubscription |
+    ^self getModelObject: ^self _representative unitInteriorChildEntrySubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitEntrySubscription |
+    ^self getModelObject: ^self _representative unitEntrySubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitExitSubscription |
+    ^self getModelObject: ^self _representative unitExitSubscription
+    . setPublisherTo: ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitStepSubscription |
+    ^self getModelObject: ^self _representative unitStepSubscription
+    . setPublisherTo: ^self
+];
+
+
+################
+
+Debug ModelObject CUnit defineMethod: [ | onContextEntrySuspension: suspensionHandler |
+    ^self contextEntrySubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextExitSuspension: suspensionHandler |
+    ^self contextExitSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextStepSuspension: suspensionHandler |
+    ^self contextStepSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextAccessSuspension: suspensionHandler |
+    ^self contextAccessSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextFaultSuspension: suspensionHandler |
+    ^self contextFaultSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextInterruptSuspension: suspensionHandler |
+    ^self contextInterruptSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onContextSNFSuspension: suspensionHandler |
+    ^self contextSNFSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitChildEntrySuspension: suspensionHandler |
+    ^self unitChildEntrySubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitExteriorChildEntrySuspension: suspensionHandler |
+    ^self unitExteriorChildEntrySubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitInteriorChildEntrySuspension: suspensionHandler |
+    ^self unitInteriorChildEntrySubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitEntrySuspension: suspensionHandler |
+    ^self unitEntrySubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitExitSuspension: suspensionHandler |
+    ^self unitExitSubscription onSuspension: suspensionHandler
+];
+
+Debug ModelObject CUnit defineMethod: [ | onUnitStepSuspension: suspensionHandler |
+    ^self unitStepSubscription onSuspension: suspensionHandler
+];
+
+
+################
+####  Maintenance
+################
+
+Debug ModelObject CUnit defineMethod: [ | cleanupCheck |
+    _consumer isntNA ifTrue: [_consumer cleanupMark];
+    _creator  isntNA ifTrue: [_creator  cleanupMark];
+    _nextStep isntNA ifTrue: [_nextStep cleanupMark];
+    ^super cleanupCheck
+];
+
+
+################################################################
+####  Debug ModelObject Subscription
+################################################################
+
+################
+####  Initialization
+################
+
+Debug ModelObject Subscription defineMethod: [ | setPublisherTo: publisher |
+    :_publisher <- publisher;
+    ^self
+];
+
+
+################
+####  Access
+################
+
+Debug ModelObject Subscription defineMethod: [ | publisher |
+    _publisher
+];
+
+Debug ModelObject Subscription defineMethod: [ | publisherDescription |
+    ^self getStringConstant: (
+	_representative doesGroundMagic ifTrue: [ _representative controllerDescription ] ifFalse: ["-"]
+    )
+];
+
+Debug ModelObject Subscription defineMethod: [ | controlPointDescription |
+    ^self getStringConstant: (
+	_representative doesGroundMagic ifTrue: [ _representative controlPointDescription ] ifFalse: ["-"]
+    )
+];
+
+Debug ModelObject Subscription defineMethod: [ | description |
+    publisherDescription concat: " ". concat: controlPointDescription
+];
+
+Debug ModelObject Subscription defineMethod: [ | hasExpired |
+    _representative hasExpired
+];
+
+Debug ModelObject Subscription defineMethod: [ | hasSuspensions |
+    _representative hasSuspensions
+];
+
+Debug ModelObject Subscription defineMethod: [ | isSingleUse |
+    _representative isSingleUse
+];
+
+Debug ModelObject Subscription defineMethod: [ | nextSuspension |
+    ^self getModelObject: _representative nextSuspension
+];
+
+################
+####  Display
+################
+
+Debug ModelObject Subscription defineMethod: [ | print |
+    ^super print; " to " print; _publisher print; " " print; description print;
+    ^self
+];
+
+
+################
+####  Control
+################
+
+Debug ModelObject Subscription defineMethod: [ | cancel |
+    _representative cancel;
+    ^self
+];
+
+Debug ModelObject Subscription defineMethod: [ | setSingleUseOff |
+    _representative setSingleUseOff;
+    ^self
+];
+
+Debug ModelObject Subscription defineMethod: [ | setSingleUseOn |
+    _representative setSingleUseOn;
+    ^self
+];
+
+################
+####  Use
+################
+
+Debug ModelObject Subscription defineMethod: [ | onSuspension: suspensionHandler |
+    ^self onSuspension: suspensionHandler onExpiration: NA
+];
+
+Debug ModelObject Subscription defineMethod: [ | onSuspension: suspensionHandler onExpiration: expirationHandler |
+    _representative doesGroundMagic && [_representative isAControlSubscription] ifTrue: [
+#--------------------------------------------------------------------------------------------
+#  Events occur at the subscription cluster level.  This method executes at the subscription
+#  type level.  To prevent deadlocks and ensure that events are handled promptly, each
+#  subscription cluster needs its own event monitor (i.e., the code in the '[...] bg' block).
+#  The declustering induced in '_representative send: [...]' makes that happen.
+#--------------------------------------------------------------------------------------------
+	_representative send: [
+	    [
+		[ waitForSuspensions; hasSuspensions ] whileTrue: [
+		    ^my suspensionHandler valueWith: nextSuspension asDebugModelObject
+		];
+		^my expirationHandler isntNA ifTrue: [
+		    ^my expirationHandler value
+		]
+	    ] bg
+	]
+    ];
+    ^self
+];
+
+
+################
+####  Maintenance
+################
+
+Debug ModelObject Subscription defineMethod: [ | cleanupCheck |
+    _publisher isntNA ifTrue: [_publisher cleanupMark];
+    ^super cleanupCheck
+];
+
+Debug ModelObject Subscription defineMethod: [ | cleanupReset |
+    ^super cleanupReset;
+    hasExpired && [ hasSuspensions not ] ifFalse: [ cleanupMark ];
+    ^self
+];

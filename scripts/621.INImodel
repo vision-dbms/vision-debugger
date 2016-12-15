@@ -1,0 +1,21 @@
+
+################################################################
+####  Classes
+################################################################
+
+Debug ModelObject do: [
+    ^self createSubclass: "Subscription" at: ^self;
+];
+
+Debug ModelObject do: [
+    IClass at: "VControlPointSubscription" put: Subscription;
+];
+
+################################################################
+####  Properties
+################################################################
+
+Debug ModelObject CUnit		defineFixedProperty: '_creator';
+Debug ModelObject CUnit		defineFixedProperty: '_nextStep';
+
+Debug ModelObject Subscription	defineFixedProperty: '_publisher';

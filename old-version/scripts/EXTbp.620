@@ -1,0 +1,74 @@
+
+################
+####  Object
+################
+
+Object defineMethod: [ | setBreakInMessageNamesContaining: string |
+   ^self getMessageNamesContaining: string. do: [ ^self setBreak ];
+];
+
+Object defineMethod: [ | clearBreakInMessageNamesContaining: string |
+   ^self getMessageNamesContaining: string. do: [ ^self clearBreak ];
+];
+
+Object defineMethod: [ | setBreakInMessagesDefining: string |
+   ^self getMessagesDefining: string. do: [ ^self setBreak ];
+];
+
+Object defineMethod: [ | clearBreakInMessagesDefining: string |
+   ^self getMessagesDefining: string. do: [ ^self clearBreak ];
+];
+
+Object defineMethod: [ | setBreakInMessagesUsing: string |
+   ^self getMessagesUsing: string. do: [ ^self setBreak ];
+];
+
+Object defineMethod: [ | clearBreakInMessagesUsing: string |
+   ^self getMessagesUsing: string. do: [ ^self clearBreak ];
+];
+
+
+################
+####  Schema
+################
+
+Schema MID defineMethod: [ | setBreak |
+   !dd <- ^self dictionaryDefinition;
+   dd isntNA && [dd value isMethod] ifTrue: [ dd value setBreak ]. isTrue ifTrue: [
+      "+++ Break set in " print; ^self displayInfo
+   ];
+];
+
+Schema MID defineMethod: [ | clearBreak |
+   !dd <- ^self dictionaryDefinition;
+   dd isntNA && [dd value isMethod] ifTrue: [ dd value clearBreak ]. isTrue ifTrue: [
+      "+++ Break cleared in " print; ^self displayInfo
+   ];
+];
+
+Schema MID defineMethod: [ | dictionaryDefinition |
+   ^self messageDescriptor internalSelector locateInDictionaryOf:
+      ^self messageClassDescriptor class
+];
+
+
+################
+####  Block
+################
+
+Block define: 'setBreak'	toBePrimitive: 630 withControlValue: 1 ;
+Block define: 'clearBreak'	toBePrimitive: 630 withControlValue: 2 ;
+
+################
+####  Method
+################
+
+Method define: 'setBreak'	toBePrimitive: 630 withControlValue: 1 ;
+Method define: 'clearBreak'	toBePrimitive: 630 withControlValue: 2 ;
+
+################
+####  Primitive
+################
+
+Primitive define: 'setBreak'	toBePrimitive: 630 withControlValue: 1 ;
+Primitive define: 'clearBreak'	toBePrimitive: 630 withControlValue: 2 ;

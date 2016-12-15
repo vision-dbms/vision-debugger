@@ -1,0 +1,20 @@
+
+################################################################
+####  ExportWorkspace
+################################################################
+
+ToolKit createSubclass: "ExportWorkspace";
+
+ExportWorkspace
+defineProperty: '_exportedObjects'	withPrototype: IndexedList.
+defineProperty: '_exportedReferences'	withPrototype: IndexedList.
+;
+
+################################################################
+####  ExportWorkspace XDebug
+################################################################
+
+ExportWorkspace createSubclass: "XDebug" at: ExportWorkspace;
+
+ExportWorkspace XDebug
+;

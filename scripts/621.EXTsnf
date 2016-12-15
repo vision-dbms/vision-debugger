@@ -1,0 +1,60 @@
+
+################
+####  BuiltInWorkspace
+################
+# 
+# BuiltInWorkspace define: 'fancySNFReport' toBe: FALSE;
+# 
+################
+####  Object
+################
+# 
+# Object define: 'ParameterAccessBlocks' toBe:
+# 	[ ^self parameter1 ],
+# 	[ ^self parameter2 ],
+# 	[ ^self parameter3 ],
+# 	[ ^self parameter4 ],
+# 	[ ^self parameter5 ],
+# 	[ ^self parameter6 ],
+# 	[ ^self parameter7 ],
+# 	[ ^self parameter8 ],
+# 	[ ^self parameter9 ],
+# 	[ ^self parameter10 ],
+# 	[ ^self parameter11 ],
+# 	[ ^self parameter12 ],
+# 	[ ^self parameter13 ],
+# 	[ ^self parameter14 ],
+# 	[ ^self parameter15 ],
+# 	[ ^self parameter16 ],
+# 	[ ^self parameter17 ],
+# 	[ ^self parameter18 ],
+# 	[ ^self parameter19 ],
+# 	[ ^self parameter20 ];
+# 
+# Object defineMethod: [ | handleSNF: snf |
+#     ^local fancySNFReport ifTrue: [
+# 	^local extendBy: [!fancySNFReport <- FALSE]. asLocalContextFor: [
+# 	    newLine print; "+++ Selector '" print; snf selector print; "' Not Found: <" print;
+# 	    snf call recipient print;
+# 	    snf parameterCount sequence do: [
+# 		!pBlock <- ParameterAccessBlocks at: ^self;
+# 		pBlock isntNA ifTrue: [ ", " print; ^my snf send: pBlock. print ]
+# 	    ];
+# 	    snf parameterCount > 20 ifTrue: [
+# 		", ..." print
+# 	    ];
+# 	    ">" printNL;
+# 	    snf dismiss
+# 	]
+#     ];
+#     NA
+# ];
+
+################
+####  QuietNA
+################
+
+QuietNA defineMethod: [ | handleSNF: snf |
+    snf dismiss;
+    ^self
+];

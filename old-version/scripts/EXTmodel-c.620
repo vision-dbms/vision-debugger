@@ -1,0 +1,113 @@
+
+################################################################
+####  Debug ModelObject
+################################################################
+
+Debug ModelObject define: 'exportTypeName' toBe: "Object";
+
+Debug ModelObject defineMethod: [ | export |
+    ^self beginTuple endTuple;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | exportValue |
+    ^self beginValueTuple endValueTuple;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | beginTuple |
+    ^self beginValueTuple
+	exportMember: "cardinality"		withValue: [cardinality] .
+	exportMember: "internalTypeName"	withValue: [typeName] .
+];
+
+Debug ModelObject defineMethod: [ | beginValueTuple |
+    CurrentExportWorkspace beginTupleFor: ^self .
+	exportMember: "_ID"			withValue: [internalID] .
+	exportMember: "_Type"			withValue: [exportTypeName] .
+];
+
+
+################################################################
+####  Debug ModelObject CUnit
+################################################################
+
+Debug ModelObject CUnit defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "depth"		withValue: [depth].
+	exportMember: "description"	withValue: [description].
+	exportMember: "recipient"	withValue: [recipientRepresentative] if: [recipientAvailable].
+	exportMember: "returning"	withValue: [returnCaseName].
+	exportMember: "selector"	withValue: [selector].
+	exportMember: "stateName"	withValue: [stateName].
+	exportMember: "statusName"	withValue: [statusName].
+	exportMember: "suspendCount"	withValue: [suspendCount].
+	exportMember: "terminated"	withValue: [terminated].
+];
+
+
+################################################################
+####  Debug ModelObject Call
+################################################################
+
+Debug ModelObject Call define: 'exportTypeName' toBe: "Message";
+
+Debug ModelObject Call defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "blockIndent"	withValue: [blockIndent].
+	exportMember: "blockOffset"	withValue: [blockOffset].
+	exportMember: "blockPrefix"	withValue: [blockPrefix].
+	exportMember: "blockSuffix"	withValue: [blockSuffix].
+	exportMember: "parameterCount"	withValue: [parameterCount].
+	exportMember: "recipientSource"	withValue: [recipientSourceName].
+];
+
+
+################################################################
+####  Debug ModelObject Task
+################################################################
+
+Debug ModelObject Task define: 'exportTypeName' toBe: "Method";
+
+Debug ModelObject Task defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "call"		withValue: [call] if: [call isntNA].
+];
+
+
+################################################################
+####  Debug ModelObject BlockTask
+################################################################
+
+Debug ModelObject BlockTask defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "blockIndent"	withValue: [blockIndent].
+	exportMember: "blockOffset"	withValue: [blockOffset].
+	exportMember: "blockPrefix"	withValue: [blockPrefix].
+	exportMember: "blockSuffix"	withValue: [blockSuffix].
+];
+
+
+################################################################
+####  Debug ModelObject PrimitiveTask
+################################################################
+
+Debug ModelObject PrimitiveTask defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "primitive"	withValue: [primitive].
+];
+
+
+################################################################
+####  Debug ModelObject Suspension
+################################################################
+
+Debug ModelObject Suspension define: 'exportTypeName' toBe: "Suspension";
+
+Debug ModelObject Suspension defineMethod: [ | beginTuple |
+    ^super beginTuple
+	exportMember: "canResume"	withValue: [canResume].
+	exportMember: "committed"	withValue: [committed].
+	exportMember: "stateName"	withValue: [stateName].
+	exportMember: "suspendee"	withValue: [suspendee].
+];

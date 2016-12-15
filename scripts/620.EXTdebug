@@ -1,0 +1,38 @@
+
+################################################################
+####  Object
+################################################################
+
+#----------------------------------------------------------------
+#  Public Protocol
+#----------------------------------------------------------------
+
+Object define: 'readEvalPrint'		toBePrimitive: 500 ;
+Object define: 'readEvalPrintOnce'	toBePrimitive: 500 withControlValue: 1 ;
+
+Object define: 'relinquishTimeSlice'	toBePrimitive: 502 ;
+
+Object define: 'doesGroundMagic'	toBePrimitive: 506 withControlValue: 0 ;
+Object define: 'doesSelfMagic'		toBePrimitive: 506 withControlValue: 1 ;
+
+Object define: '_currentTask'		toBePrimitive: 635 ;
+
+Object defineMethod: [ | currentTask |
+    _currentTask asDebugModelObject
+];
+
+Object defineMethod: [ | displayCurrentStack |
+    ^self currentTask caller displayInfoHeading displayCallers cleanModel;
+    ^self
+];
+
+
+################################################################
+####  Utility SessionAttribute
+################################################################
+
+Utility SessionAttribute do: [
+    ^self define: 'cachingContainerHandles'	toBe: (271 asPointerTo: ^self);
+    ^self define: 'cachingDictionaries'		toBe: (272 asPointerTo: ^self);
+    ^self define: 'sendingValueMessages'	toBe: (273 asPointerTo: ^self);
+];

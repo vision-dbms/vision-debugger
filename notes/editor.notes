@@ -1,0 +1,20 @@
+Main Editor
+------------
+
+Basics:
+- basic typing, erase, scrolling
+- cut+paste
+- search+replace
+- read/write files
+
+Execution Model:
+-  Submit buffer or region to vision ; return output to separate
+   scrollable buffer
+-  Ability to have multiple input/output buffers
+-  Journalling
+
+Typing Aids:
+- matching on (), [], ""
+- color code comments
+
+

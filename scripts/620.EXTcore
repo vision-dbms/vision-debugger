@@ -1,0 +1,130 @@
+
+################################################################
+####  Block
+################################################################
+
+Block define: 'bgScalar'	toBePrimitive: 505 withControlValue: 0 ;
+Block define: 'bg'		toBePrimitive: 505 withControlValue: 1 ;
+
+Block define: 'bgSusScalar'	toBePrimitive: 505 withControlValue: 10 ;
+Block define: 'bgSus'		toBePrimitive: 505 withControlValue: 11 ;
+
+Block defineMethod: [ | primitiveIndex |
+    !method <- ^self asMethod;
+    method isPrimitive ifTrue: [method index]
+];
+
+Block defineMethod: [ | primitiveControlValue |
+    !method <- ^self asMethod;
+    method isPrimitive ifTrue: [method controlValue]
+];
+
+
+################################################################
+####  Collection
+################################################################
+
+Collection defineMethod: [ | add: anElement |
+    ^self basicAdd: anElement asSelf
+];
+
+################################################################
+####  IndexedList
+################################################################
+
+IndexedList defineMethod: [ | basicAdd: anElement |
+    ^self at: anElement put: anElement
+];
+
+################################################################
+####  List
+################################################################
+
+List defineMethod: [ | basicAdd: anElement |
+    ^self, anElement;
+    ^self
+];
+
+List defineMethod: [ | delete: position |
+    !cell <- ^self base1CellAtPosition: position;
+    cell isntNA ifTrue: [!value <- cell value; cell delete; ^self alignStore; value]
+];
+
+
+################################################################
+####  Object
+################################################################
+
+Object define: 'basicDo:with:' toBePrimitive: 37;
+
+Object defineMethod: [ | doOnce: block |
+    !current <- ^current;
+    !date   <- ^date;
+    !local  <- ^local;
+    !self   <- ^self;
+    0 asReferenceTo: ^current. == ^current ifTrue: [
+        current instanceList groupedBy: [date]. do: [
+            ^self super evaluate: [
+                groupList groupedBy: [local]. do: [
+                    ^self super asLocalContextFor: [
+                        groupList groupedBy: [self]. do: [
+                            ^self super basicDo: (groupList at: 1 . block) with: groupList
+                        ];
+                    ];
+                ];
+            ];
+        ];
+    ];
+    :current <- NA; :current cleanStore;
+    ^self
+];
+
+Object defineMethod: [ | doOnceNoContext: block |
+    !current <- ^current;
+    !self   <- ^self;
+    0 asReferenceTo: ^current. == ^current ifTrue: [
+        current instanceList groupedBy: [self]. do: [
+            ^self super basicDo: (groupList at: 1 . block) with: groupList;
+        ];
+    ];
+    :current <- NA; :current cleanStore;
+    ^self
+];
+
+Object defineMethod: [ | sendOnce: block |
+    !current <- ^current;
+    !date   <- ^date;
+    !local  <- ^local;
+    !self   <- ^self;
+    !result;
+    0 asReferenceTo: ^current. == ^current ifTrue: [
+        current instanceList groupedBy: [date]. do: [
+            ^self super evaluate: [
+                groupList groupedBy: [local]. do: [
+                    ^self super asLocalContextFor: [
+                        groupList groupedBy: [self]. do: [
+                            !result <- ^self super basicSend: (groupList at: 1 . block) with: groupList;
+                            groupList do: [:result <- ^my result];
+                        ];
+                    ];
+                ];
+            ];
+        ];
+    ];
+    :current <- NA; :current cleanStore;
+    result
+];
+
+Object defineMethod: [ | sendOnceNoContext: block |
+    !current <- ^current;
+    !self   <- ^self;
+    !result;
+    0 asReferenceTo: ^current. == ^current ifTrue: [
+        current instanceList groupedBy: [self]. do: [
+            !result <- ^self super basicSend: (groupList at: 1 . block) with: groupList;
+            groupList do: [:result <- ^my result];
+        ];
+    ];
+    :current <- NA; :current cleanStore;
+    result
+];

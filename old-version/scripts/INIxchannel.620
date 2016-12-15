@@ -1,0 +1,8 @@
+
+################
+####
+#### OpenVision XChannel
+####
+################
+
+OpenVision createSubclass: "XChannel" at: OpenVision;

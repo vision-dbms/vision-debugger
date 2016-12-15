@@ -1,0 +1,2761 @@
+READ: V> 
+WRITE: PrinterTools Descriptor getNumberOfPrinters
+READ: V> 
+WRITE: ?g
+READ:         1
+READ: V> 
+WRITE: PrinterTools Descriptor displayPrinterData
+READ: V> 
+WRITE: ?g
+READ: PC ;Use the PC Printer ;P ;pcprint;
+READ: 
+READ: V> 
+WRITE: PrinterTools Descriptor Named PC  getNumberOfOptions
+READ: V> 
+WRITE: ?g
+READ:         3
+READ: V> 
+WRITE: PrinterTools Descriptor Named PC  displayPrinterOptions
+READ: V> 
+WRITE: ?g
+READ: Portrait Cmp. ;Portrait Compressed 8pt. font ;P ;E&k2S&l8D;
+READ: Courier 6pt. ;Courier 6pt. font ;C ;E;
+READ: Landscape Cmp. ;Landscape Compressed 8pt. font ;L ;E&k2S&l8D&l1O;
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "sprnt" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prnt" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: print                          Method          Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "print" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: print                          Method          Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prin" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: print                          Method          Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prn" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: print                          Method          Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: "" :toUpper
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: ?g
+READ: <StringProcessor>
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prn" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: [pP][rR][nN]
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print: " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prn" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ:  | prn[pP][rR][nN]
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "prn" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: prn | [pP][rR][nN]
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRINT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRINT | [pP][rR][iI][nN][tT]
+READ: print                          Method          Object
+READ: isPrinterTools                 Constant        Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- "^" concat: 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:    :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:    alts count = 0
+READ: V> 
+WRITE:      ifTrue: [ :alts <- choice select: [code contains: (^my pattern) ] ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRINT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRINT | ^[pP][rR][iI][nN][tT]
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- "^" concat: 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:    :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:    alts count = 0
+READ: V> 
+WRITE:      ifTrue: [ :alts <- choice select: [code contains: (^my pattern) ] ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | ^[pP][rR][nN][tT]
+READ: 
+READ: >>> Selector 'choice' Not Found <<<
+READ: 
+READ: >>> Selector 'select:' Not Found <<<
+READ: 
+READ: >>> Selector 'count' Not Found <<<
+READ: 
+READ: >>> Selector 'count' Not Found <<<
+READ: 
+READ: >>> Selector 'sortDown:' Not Found <<<
+READ: 
+READ: >>> Selector 'groupedByString:' Not Found <<<
+READ: 
+READ: >>> Selector 'groupList' Not Found <<<
+READ: 
+READ: >>> Selector 'at:' Not Found <<<
+READ:  Undefined       NA 
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my string ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- "^" concat: 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ "[" print ; toLower print; toUpper print; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:    :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:    alts count = 0
+READ: V> 
+WRITE:      ifTrue: [ :alts <- choices select: [code contains: (^my pattern) ] ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE: pattern printNL ;
+READ: V> 
+WRITE:    :alts <- choices
+READ: V> 
+WRITE:       select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | ^[pP][rR][nN][tT]
+READ: P.{0,1}R.{0,1}N.{0,1}T.{0,1}
+READ: [PR][RN][NT][T]
+READ: 
+READ: V> 
+WRITE: "" showMessageNamesContaining: "Case"
+READ: V> 
+WRITE: ?g
+READ: Message                       Type         Defined At
+READ: -------------------------------------------------------------------------------
+READ: LowerCaseDictionary           Constant     String
+READ: UpperCaseDictionary           Constant     String
+READ: convertToCaseInsensitiveRegEx Method       String
+READ: toggleCase                    Primitive    String
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList
+READ: V> 
+WRITE:        do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  (^self != "[") && (^self != "]") ifTrue: [ ".{0,1}" print;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ "[" print ; 
+READ: V> 
+WRITE:             toLower print ; toUpper print ;
+READ: V> 
+WRITE:             next isntNA
+READ: V> 
+WRITE:               ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:             "]" print ; 
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: >>> 'syntax error' near source line 62, character 1912 <<<
+READ:  string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ:  alts sortDown: [ messageClassDescriptor number ] .
+READ:  groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ:  ] ;
+READ:  
+READ:  Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ:  do: [ displayInfo ] ;
+READ: **                    ^
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  (^self != "[") && (^self != "]") ifTrue: [ ".{0,1}" print ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ "[" print ; 
+READ: V> 
+WRITE:             toLower print ; toUpper print ;
+READ: V> 
+WRITE:             next isntNA
+READ: V> 
+WRITE:               ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:             "]" print ; 
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | 
+READ: >>> Selector 'toLower' Not Found <<<
+READ: 
+READ: >>> Selector 'toUpper' Not Found <<<
+READ: 
+READ: >>> Selector 'next' Not Found <<<
+READ: PRNT | ^[P.{0,1}p.{0,1}][R.{0,1}r.{0,1}][N.{0,1}n.{0,1}][T.{0,1}t.{0,1}] | List of 1
+READ: NA                             Constant        Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  (^self != "[") && (^self != "]") ifTrue: [ ".{0,1}" print ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ !pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | PRNT | ^[P.{0,1}p.{0,1}][R.{0,1}r.{0,1}][N.{0,1}n.{0,1}][T.{0,1}t.{0,1}] | List of 0
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  (^self != "[") && (^self != "]") ifTrue: [ ".{0,1}" print ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | PRNT | ^[pPrR][rRnN][nNtT][tT] | List of 0
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  (^self != "[") && (^self != "]") ifTrue: [ ".{0,1}" print ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE: "case insensitive: " print ; pattern printNL ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | case insensitive: ^[P.{0,1}p.{0,1}][R.{0,1}r.{0,1}][N.{0,1}n.{0,1}][T.{0,1}t.{0,1}]
+READ: PRNT | ^[pPrR][rRnN][nNtT][tT] | List of 0
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE: "case insensitive: " print ; pattern printNL ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | case insensitive: ^[Pp].{0,1}[Rr].{0,1}[Nn].{0,1}[Tt].{0,1}
+READ: PRNT | ^[Pp].{0,1}[Rr].{0,1}[Nn].{0,1}[Tt].{0,1} | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | PRNT | ^[Pp].{0,1}[Rr].{0,1}[Nn].{0,1}[Tt].{0,1} | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRINT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRINT | PRINT | ^[Pp][Rr][Ii][Nn][Tt] | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "RINT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: RINT | RINT | [Rr][Ii][Nn][Tt] | List of 19
+READ: print                          Method          Object
+READ: isPrinterTools                 Constant        Object
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: print:                         Method          Number
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: sprint:                        Method          Number
+READ: sprintWithCommas:              Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNT | PRNT | ^[Pp].{0,1}[Rr].{0,1}[Nn].{0,1}[Tt].{0,1} | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNIT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNIT | PRNIT | ^[pPrR][rRnN][nNiI][iItT][tT] | List of 0
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: string print; " | " print ;
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   prior isntNA
+READ: V> 
+WRITE:                     ifTrue: [ prior toLower print ; prior toUpper print ] ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNIT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNIT | PRNIT | ^[pPrR][rRpPnN][nNrRiI][iInNtT][tTiI] | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 
+WRITE: Schema CD defineMethod: [ | getMessagesCloseTo: string |
+READ: V> 
+WRITE: !choices <- class getMessagesX ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: !pattern <- string ;
+READ: V> 
+WRITE: !alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- pattern drop: 1 ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:       [ string else: "" . toList
+READ: V> 
+WRITE:         do: [ print ; ".{0,1}" print ;  ] ;
+READ: V> 
+WRITE:       ] divertOutput ;
+READ: V> 
+WRITE:     :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:          [ string else: "" . convertToCaseInsensitiveRegEx toList
+READ: V> 
+WRITE:            do: [ print; 
+READ: V> 
+WRITE:                  ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+READ: V> 
+WRITE:                ] ;
+READ: V> 
+WRITE:          ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: alts count = 0
+READ: V> 
+WRITE: ifTrue:
+READ: V> 
+WRITE:   [ :pattern <- 
+READ: V> 
+WRITE:      [ string else: "" . toList linkElements
+READ: V> 
+WRITE:        do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+READ: V> 
+WRITE:      ] divertOutput ;
+READ: V> 
+WRITE:    :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:     alts count = 0
+READ: V> 
+WRITE:     ifTrue:
+READ: V> 
+WRITE:       [ :pattern <- "^" concat:
+READ: V> 
+WRITE:           [ string else: "" . toList linkElements
+READ: V> 
+WRITE:             do: [ "[" print ; 
+READ: V> 
+WRITE:                   toLower print ; toUpper print ;
+READ: V> 
+WRITE:                   prior isntNA
+READ: V> 
+WRITE:                     ifTrue: [ prior toLower print ; prior toUpper print ] ;
+READ: V> 
+WRITE:                   next isntNA
+READ: V> 
+WRITE:                     ifTrue: [ next toLower print ; next toUpper print ] ;
+READ: V> 
+WRITE:                   "]" print ; 
+READ: V> 
+WRITE:                 ] ;
+READ: V> 
+WRITE:           ] divertOutput ;
+READ: V> 
+WRITE:         :alts <- choices select: [ code contains: ^my pattern ] ;
+READ: V> 
+WRITE:       ] ;
+READ: V> 
+WRITE:   ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+READ: V> 
+WRITE: alts sortDown: [ messageClassDescriptor number ] .
+READ: V> 
+WRITE: groupedByString: [ code ] . send: [ groupList at: 1 ] 
+READ: V> 
+WRITE: ] ;
+READ: V> 
+WRITE: 
+READ: V> 
+WRITE: Number classDescriptor getMessagesCloseTo: "PRNIT" .
+READ: V> 
+WRITE: do: [ displayInfo ] ;
+READ: V> 
+WRITE: ?g
+READ: PRNIT | ^[pPrR][rRpPnN][nNrRiI][iInNtT][tTiI] | List of 15
+READ: print                          Method          Object
+READ: print:                         Method          Number
+READ: printNL                        Method          Object
+READ: printNL:                       Method          Object
+READ: printOf:                       Method          Object
+READ: printPRN                       Method          Object
+READ: printPRN:                      Method          Object
+READ: printUniversal:                Method          Object
+READ: printWithCommas:               Method          Number
+READ: printWithCommasNL:             Method          Object
+READ: printWithLeadingZeros:         Method          Number
+READ: printWithLeadingZerosNL:       Method          Number
+READ: printTimeWith:                 Method          Object
+READ: 
+READ: V> 

@@ -1,0 +1,21 @@
+
+################################################################
+####  Classes
+################################################################
+
+Debug createSubclass: "Inspector" at: Debug;
+
+################################################################
+####  Properties
+################################################################
+
+Debug Inspector
+defineFixedProperty: '_defaultCallerFrames'.
+defineFixedProperty: '_defaultConsumerFrames'.
+
+defineFixedProperty: '_monitor'.
+defineFixedProperty: '_monitorEnvironment'.
+defineFixedProperty: '_monitorSuspension'.
+
+defineProperty: 'suspensions' withPrototype: List.
+;

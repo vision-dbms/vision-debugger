@@ -1,0 +1,36 @@
+Object respondsTo: 'define:toBePrimitive:withControlValue:'. ifFalse: [
+    "/mnt/lospatos/playground/Vision/debugger/scripts/EXTcore6xx.dp" asFileContents do: [isString ifTrue: [evaluate]]
+];
+
+Object respondsTo: 'define:toBePrimitive:withControlValue:'. ifTrue: [
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTcore"		asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTcore"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTextend"		asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTmutex"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.INIdebug"		asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTdebug"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTsnf"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.INImodel"		asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.INImodel"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTmodel"		asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTmodel"		asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTmodel-display"	asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTmodel-display"	asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTmodel-step"	asFileContents evaluate;
+
+    "/mnt/lospatos/playground/Vision/debugger/scripts/621.EXTbp"		asFileContents evaluate;
+
+    Schema processAllMessages;
+] ifFalse: [
+    ">>> Cannot find primitive definition extensions needed to install the debugger." printNL
+];
+
+String respondsTo: 'newAssociativeCluster'. ifFalse: [
+    ">>> Cannot find string clustering extensions needed to run the debugger." printNL
+];

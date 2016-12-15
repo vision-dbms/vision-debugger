@@ -1,0 +1,9 @@
+"/mnt/lospatos/playground/Vision/debugger/scripts/620.setup-core" asFileContents evaluate;
+
+!currency <- Named Currency USD;
+Company defineMethod: [ | sales | funDataA sales ];
+
+myi isntNA ifTrue: [
+    "+++ Running 'myi evaluateReadEvalPrint'." printNL;
+    myi evaluateReadEvalPrint
+];

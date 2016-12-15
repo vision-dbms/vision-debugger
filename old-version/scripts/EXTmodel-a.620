@@ -1,0 +1,909 @@
+################################################################
+####  Object
+################################################################
+
+Object defineMethod: [ | asDebugModelObject |
+    ^my Debug ModelObject getModelObject: ^self
+];
+
+
+################################################################
+####  Debug ModelObject
+################################################################
+
+################
+####  Traversal (Candidates for promotion to 'Object')
+################
+
+Debug ModelObject defineMethod: [ | collect: linkAccessBlock into: list |
+    !next <- ^self;
+    [next isntNA] whileTrue: [
+	list add: next;
+	:next <- next send: linkAccessBlock
+    ];
+    list
+];
+
+Debug ModelObject defineMethod: [ | collect: linkAccessBlock into: list for: n |
+    n isNumber ifTrue: [
+	!next <- ^self;
+	!limit <- (list count + n) asInteger;
+	[next isntNA && [ list count < limit ] ] whileTrue: [
+	    list add: next;
+	    :next <- next send: linkAccessBlock
+	];
+	list
+    ] ifFalse: [ ^self collect: linkAccessBlock into: list ]
+];
+
+
+################
+####  Access
+################
+
+Debug ModelObject defineMethod: [ | cardinality |
+    _cardinality else: [
+	:_cardinality <- _representative cardinality
+    ]
+];
+
+Debug ModelObject defineMethod: [ | internalID |
+    code
+];
+
+Debug ModelObject defineMethod: [ | representative |
+    _representative
+];
+
+Debug ModelObject defineMethod: [ | representativeList |
+    _representative instanceList
+];
+
+Debug ModelObject defineMethod: [ | typeName |
+    _typeName else: [
+	:_typeName <- ^self getStringConstant: _representative typeName
+    ]
+];
+
+
+################
+####  Display
+################
+
+Debug ModelObject defineMethod: [ | print |
+    ^self whatAmI print;
+    code isNumber ifTrue: [
+	"[" print; code print: code numberOfDigits; "]" print
+    ];
+    ^self
+];
+
+
+################
+####  Maintenance
+################
+
+Debug ModelObject defineMethod: [ | getStringTemporary: string |
+    string insertIntoCluster: "" newAssociativeCluster
+];
+
+Debug ModelObject defineMethod: [ | getStringConstant: string |
+    string insertIntoCluster: StringConstants
+];
+
+Debug ModelObject defineMethod: [ | getModelObject: representative |
+    representative doesGroundMagic ifTrue: [
+	[   Index at: representative tuid32. else: [
+		representative tuid32 sendOnceNoContext: [
+		    ^my IClass at: ^my representative typeName.
+		    elseIf: [ ^my representative isACall	  ] then: [ ^my Call ].
+		    elseIf: [ ^my representative isAPrimitiveTask ] then: [ ^my PrimitiveTask ].
+		    elseIf: [ ^my representative isATask	  ] then: [ ^my Task ].
+		    else: [ ^my ModelObject ].
+		    createInstance: ^my representative
+		]
+	    ]
+	] mvalue
+    ]
+];
+
+Debug ModelObject defineMethod: [ | initializeKeys: representative |
+    :code <- representative tuid32;
+    :_representative <- representative;
+    Index at: code put: ^self;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | cleanModel |
+    Index do: [ cleanupReset ];
+    !checklist; [
+	:checklist <- Index select: [_cmMarked && _cmChecked not];
+	:checklist cleanStore;
+	checklist count > 0
+    ] whileTrue: [
+	checklist do: [^self cleanupCheck]
+    ];
+    Index select: [_cmMarked not]. do: [ ^self cleanupDeletedObject rdelete ];
+    ModelObject cleanStore;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | cleanupLocalAttributes |
+    Index delete: code;
+    ^super cleanupLocalAttributes
+];
+
+Debug ModelObject defineMethod: [ | cleanupCheck |
+    :_cmChecked <- TRUE;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | cleanupMark |
+    :_cmMarked <- TRUE;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | cleanupReset |
+    :_cmMarked <- _cmRetained isTrue;
+    :_cmChecked <- FALSE;
+];
+
+Debug ModelObject defineMethod: [ | retain |
+    :_cmRetained <- TRUE;
+    ^self
+];
+
+Debug ModelObject defineMethod: [ | release |
+    :_cmRetained <- FALSE;
+    ^self
+];
+
+
+################################################################
+####  Debug ModelObject CObject
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject CObject defineMethod: [ | caller: n |
+    ^self callers: n. at: n
+];
+
+Debug ModelObject CObject defineMethod: [ | callers |
+    ^self collect: [caller] into: ^global List new
+];
+
+Debug ModelObject CObject defineMethod: [ | callers: n |
+    ^self collect: [caller] into: ^global List new for: n
+];
+
+Debug ModelObject CObject defineMethod: [ | consumer: n |
+    ^self consumers: n. at: n
+];
+
+Debug ModelObject CObject defineMethod: [ | consumers |
+    ^self collect: [consumer] into: ^global List new
+];
+
+Debug ModelObject CObject defineMethod: [ | consumers: n |
+    ^self collect: [consumer] into: ^global List new for: n
+];
+
+Debug ModelObject CObject defineMethod: [ | top |
+    _top else: [
+	:_top <- ^self caller isntNA ifTrue: [^self caller top] ifFalse: [baseObject]
+    ]
+];
+
+
+################
+####  Display
+################
+
+Debug ModelObject CObject defineMethod: [ | datum |
+    _representative datum
+];
+
+Debug ModelObject CObject defineMethod: [ | datumAlterable |
+    _representative datumAlterable
+];
+
+Debug ModelObject CObject defineMethod: [ | datumAvailable |
+    _representative datumAvailable
+];
+
+Debug ModelObject CObject defineMethod: [ | displayCaller |
+    ^self print
+];
+
+Debug ModelObject CObject defineMethod: [ | displayCallers |
+    ^self callers do: [ ^self displayCaller ];
+    ^self
+];
+
+Debug ModelObject CObject defineMethod: [ | displayCallersFor: frameCount |
+    ^self callers: frameCount. do: [ ^self displayCaller ];
+    ^self
+];
+
+Debug ModelObject CObject defineMethod: [ | displayConsumers |
+    ^self consumers do: [ ^self displayCaller ];
+    ^self
+];
+
+Debug ModelObject CObject defineMethod: [ | displayConsumersFor: frameCount |
+    ^self consumers: frameCount. do: [ ^self displayCaller ];
+    ^self
+];
+
+Debug ModelObject CObject defineMethod: [ | displayInfoHeading |
+    ^self
+];
+
+
+################################################################
+####  Debug ModelObject CUnit
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject CUnit defineMethod: [ | activeSubtasks |
+    ^self subtasks select: [ ^self terminated isFalse ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | activeSuppliers |
+    ^self suppliers select: [ ^self terminated isFalse ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | caller |
+    _caller else: [
+	:_caller <- ^self getModelObject: _representative caller
+    ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | consumer |
+    _consumer else: [
+	:_consumer <- ^self getModelObject: _representative consumer
+    ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | damaged |
+    _representative damaged
+];
+
+Debug ModelObject CUnit defineMethod: [ | depth |
+    _depth else: [
+	:_depth <- caller isntNA ifTrue: [(caller depth + 1) asInteger] ifFalse: [0]
+    ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | failed |
+    _representative failed
+];
+
+Debug ModelObject CUnit defineMethod: [ | interrupted |
+    _representative interrupted
+];
+
+Debug ModelObject CUnit defineMethod: [ | paused |
+    _representative paused
+];
+
+Debug ModelObject CUnit defineMethod: [ | recipientAvailable |
+    _representative recipientAvailable
+];
+
+Debug ModelObject CUnit defineMethod: [ | returnCaseName |
+    _returnCaseName else: [
+	:_returnCaseName <- ^self getStringConstant: _representative returnCaseName
+    ]
+];
+
+Debug ModelObject CUnit defineMethod: [ | selector |
+    _representative selector
+];
+
+Debug ModelObject CUnit defineMethod: [ | stateName |
+    ^self getStringConstant: _representative stateName
+];
+
+Debug ModelObject CUnit defineMethod: [ | statusName |
+    ^self getStringConstant: _representative statusName
+];
+
+Debug ModelObject CUnit defineMethod: [ | stepName |
+    ^self getStringConstant: _representative stepName
+];
+
+Debug ModelObject CUnit defineMethod: [ | suspendCount |
+    _representative suspendCount
+];
+
+Debug ModelObject CUnit defineMethod: [ | suppliers |
+    _suppliers
+];
+
+Debug ModelObject CUnit defineMethod: [ | terminated |
+    _terminated elseIf: [
+	_representative doesGroundMagic isFalse || [ _representative terminated ]
+    ] then: [ :_terminated <- TRUE ]. else: [ FALSE ]
+];
+
+
+################
+
+Debug ModelObject CUnit defineMethod: [ | displayActiveSubtasks |
+    ^self displayInfoHeading;
+    ^self visit: [ activeSubtasks ] withPreAction: [
+	caller isntNA && [ caller activeSubtasks count > 1 ] ifTrue: [
+	    "+" fill: _DIFW. printNL;
+	    caller internalID print: _difwIdentity negated;
+	    "Subtask Group:" printNL
+	];
+
+	!activeSubtasks <- ^self activeSubtasks;
+	activeSubtasks count > 0 ifTrue: [
+	    activeSubtasks anElement displayCaller
+	] ifFalse: [
+	    ^self displayInfo
+	]
+    ] andPostAction: []
+];
+
+Debug ModelObject CUnit defineMethod: [ | displayActiveSuppliers |
+    ^self displayInfoHeading;
+    ^self visit: [ activeSuppliers ] withPreAction: [
+	caller isntNA && [ caller activeSuppliers count > 1 ] ifTrue: [
+	    "+" fill: _DIFW. printNL;
+	    caller internalID print: _difwIdentity negated;
+	    "Supplier Group:" printNL
+	];
+
+	!activeSuppliers <- ^self activeSuppliers;
+	activeSuppliers count > 0 ifTrue: [
+	    activeSuppliers anElement displayCaller
+	] ifFalse: [
+	    ^self displayInfo
+	]
+    ] andPostAction: []
+];
+
+Debug ModelObject CUnit defineMethod: [ | displaySubtasks |
+    ^self displayInfoHeading;
+    ^self visit: [ subtasks ] withPreAction: [
+	caller isntNA && [ caller subtasks count > 1 ] ifTrue: [
+	    "+" fill: _DIFW. printNL;
+	    caller internalID print: _difwIdentity negated;
+	    "Subtask Group:" printNL
+	];
+
+	!subtasks <- ^self subtasks;
+	subtasks count > 0 ifTrue: [
+	    subtasks anElement displayCaller
+	] ifFalse: [
+	    ^self displayInfo
+	]
+    ] andPostAction: []
+];
+
+Debug ModelObject CUnit defineMethod: [ | displaySuppliers |
+    ^self displayInfoHeading;
+    ^self visit: [ suppliers ] withPreAction: [
+	caller isntNA && [ caller suppliers count > 1 ] ifTrue: [
+	    "+" fill: _DIFW. printNL;
+	    caller internalID print: _difwIdentity negated;
+	    "Supplier Group:" printNL
+	];
+
+	!suppliers <- ^self suppliers;
+	suppliers count > 0 ifTrue: [
+	    suppliers anElement displayCaller
+	] ifFalse: [
+	    ^self displayInfo
+	]
+    ] andPostAction: []
+];
+
+Debug ModelObject CUnit defineMethod: [ | showActiveSubtasks |
+    ^self do: [ | :level | ^self indentFor: level. printNL] following: [ activeSubtasks ] atLevel: 0
+];
+
+Debug ModelObject CUnit defineMethod: [ | showActiveSuppliers |
+    ^self do: [ | :level | ^self indentFor: level. printNL] following: [ activeSuppliers ] atLevel: 0
+];
+
+Debug ModelObject CUnit defineMethod: [ | showSubtasks |
+    ^self do: [ | :level | ^self indentFor: level. printNL] following: [subtasks] atLevel: 0
+];
+
+Debug ModelObject CUnit defineMethod: [ | showSuppliers |
+    ^self do: [ | :level | ^self indentFor: level. printNL] following: [suppliers] atLevel: 0
+];
+
+
+################
+
+Debug ModelObject CUnit defineMethod: [ | visit: descendentAccessBlock withPreAction: preOrderAction andPostAction: postOrderAction |
+    ^self do: preOrderAction;
+    ^self send: descendentAccessBlock. do: [
+	^self visit: ^my descendentAccessBlock withPreAction: ^my preOrderAction andPostAction: ^my postOrderAction
+    ];
+    ^self do: postOrderAction
+];
+
+Debug ModelObject CUnit defineMethod: [ | do: actionBlock following: accessBlock |
+    ^self do: actionBlock following: accessBlock atLevel: 0
+];
+
+Debug ModelObject CUnit defineMethod: [ | do: actionBlock following: accessBlock atLevel: level |
+    ^self send: actionBlock with: level;
+    ^self send: accessBlock. do: [^self do: ^my actionBlock following: ^my accessBlock atLevel: ^my level + 1]; 
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | indentFor: level |
+    ^self indentFor: level usingFill: " "
+];
+
+Debug ModelObject CUnit defineMethod: [ | indentFor: level usingFill: fill |
+    fill fill: (level * IndentationPerLevel) asInteger. print;
+    ^self
+];
+
+Debug ModelObject CUnit define: 'IndentationPerLevel' toBe: 2 ;
+
+
+################
+####  Maintenance
+################
+
+Debug ModelObject CUnit defineMethod: [ | addSupplier: supplier |
+    _suppliers add: supplier;
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | deleteSupplier: supplier |
+    _suppliers delete: supplier;
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | initializeLocalAttributes |
+    ^super initializeLocalAttributes;
+    consumer isntNA ifTrue: [
+	consumer addSupplier: ^self
+    ];
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | cleanupLocalAttributes |
+    _consumer isntNA ifTrue: [
+	_consumer deleteSupplier: ^self
+    ];
+    ^super cleanupLocalAttributes
+];
+
+Debug ModelObject CUnit defineMethod: [ | cleanupCheck |
+    _caller isntNA ifTrue: [_caller cleanupMark];
+    _consumer isntNA ifTrue: [_consumer cleanupMark];
+    ^super cleanupCheck
+];
+
+Debug ModelObject CUnit defineMethod: [ | cleanupReset |
+    ^super cleanupReset;
+    terminated ifFalse: [cleanupMark];
+    ^self
+];
+
+
+################################################################
+####  Debug ModelObject Call
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject Call defineMethod: [ | call |
+    ^self asSelf
+];
+
+Debug ModelObject Call defineMethod: [ | description |
+    ^self getStringTemporary: selector asString
+];
+
+Debug ModelObject Call defineMethod: [ | blockIndent |
+    _representative blockIndent
+];
+
+Debug ModelObject Call defineMethod: [ | blockOffset |
+    _representative blockOffset
+];
+
+Debug ModelObject Call defineMethod: [ | blockPrefix |
+    ^self getStringTemporary: _representative blockPrefix
+];
+
+Debug ModelObject Call defineMethod: [ | blockSuffix |
+    ^self getStringTemporary: _representative blockSuffix
+];
+
+Debug ModelObject Call defineMethod: [ | blockText |
+    ^self getStringTemporary: _representative blockText
+];
+
+Debug ModelObject Call defineMethod: [ | parameterCount |
+    _representative parameterCount
+];
+
+Debug ModelObject Call defineMethod: [ | recipientRepresentative |
+    _representative recipient
+];
+
+Debug ModelObject Call defineMethod: [ | recipientSourceName |
+    _recipientSourceName else: [
+	:_recipientSourceName <- ^self getStringConstant: _representative recipientSourceName
+    ]
+];
+
+Debug ModelObject Call defineMethod: [ | searchOrigin |
+    _representative searchOrigin
+];
+
+Debug ModelObject Call defineMethod: [ | subtasks |
+    caller subtasks select: [call == ^my baseObject]
+];
+
+################
+####  Display
+################
+
+Debug ModelObject Call defineMethod: [ | dumpByteCodes |
+    _representative dumpByteCodes;
+    ^self
+];
+
+################
+####  Maintenance
+################
+
+
+################################################################
+####  Debug ModelObject Task
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject Task defineMethod: [ | call |
+    _call else: [
+	:_call <- ^self getModelObject: _representative call
+    ]
+];
+
+Debug ModelObject Task defineMethod: [ | current |
+    _representative current
+];
+
+Debug ModelObject Task defineMethod: [ | currentAvailable |
+    _representative recipientAvailable
+];
+
+Debug ModelObject Task defineMethod: [ | currentList |
+    representativeList send: [current]
+];
+
+Debug ModelObject Task defineMethod: [ | description |
+    ^self getStringTemporary: representative description
+];
+
+Debug ModelObject Task defineMethod: [ | my |
+    _representative my
+];
+
+Debug ModelObject Task defineMethod: [ | myAvailable |
+    _representative myAvailable
+];
+
+Debug ModelObject Task defineMethod: [ | myList |
+    representativeList send: [my]
+];
+
+Debug ModelObject Task defineMethod: [ | recipientRepresentative |
+    _representative self
+];
+
+Debug ModelObject Task defineMethod: [ | self |
+    _representative self
+];
+
+Debug ModelObject Task defineMethod: [ | selfAvailable |
+    _representative recipientAvailable
+];
+
+Debug ModelObject Task defineMethod: [ | selfList |
+    representativeList send: [self]
+];
+
+Debug ModelObject Task defineMethod: [ | subtasks |
+    _subtasks
+];
+
+################
+####  Display
+################
+
+
+################
+####  Maintenance
+################
+
+Debug ModelObject Task defineMethod: [ | addSubtask: subtask |
+    _subtasks add: subtask;
+    ^self
+];
+
+Debug ModelObject Task defineMethod: [ | deleteSubtask: subtask |
+    _subtasks delete: subtask;
+    ^self
+];
+
+Debug ModelObject Task defineMethod: [ | initializeLocalAttributes |
+    ^super initializeLocalAttributes;
+    caller isntNA ifTrue: [
+	caller addSubtask: ^self
+    ];
+    ^self
+];
+
+Debug ModelObject Task defineMethod: [ | cleanupLocalAttributes |
+    _caller isntNA ifTrue: [
+	_caller deleteSubtask: ^self
+    ];
+    ^super cleanupLocalAttributes
+];
+
+Debug ModelObject Task defineMethod: [ | cleanupCheck |
+    _call isntNA ifTrue: [_call cleanupMark];
+    ^super cleanupCheck
+];
+
+
+################################################################
+####  Debug ModelObject BlockTask
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject BlockTask defineMethod: [ | blockIndent |
+    representative blockIndent
+];
+
+Debug ModelObject BlockTask defineMethod: [ | blockOffset |
+    representative blockOffset
+];
+
+Debug ModelObject BlockTask defineMethod: [ | blockPrefix |
+    ^self getStringTemporary: representative blockPrefix
+];
+
+Debug ModelObject BlockTask defineMethod: [ | blockSuffix |
+    ^self getStringTemporary: representative blockSuffix
+];
+
+Debug ModelObject BlockTask defineMethod: [ | blockText |
+    ^self getStringTemporary: representative blockText
+];
+
+################
+####  Display
+################
+
+Debug ModelObject BlockTask defineMethod: [ | dumpByteCodes |
+    representative dumpByteCodes;
+    ^self
+];
+
+################
+####  Maintenance
+################
+
+
+################################################################
+####  Debug ModelObject PrimitiveTask
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject PrimitiveTask defineMethod: [ | primitive |
+    (primitiveIndex + 65536 * primitiveFlags) asInteger asPrimitive
+];
+
+Debug ModelObject PrimitiveTask defineMethod: [ | primitiveFlags |
+    _representative primitiveFlags
+];
+
+Debug ModelObject PrimitiveTask defineMethod: [ | primitiveIndex |
+    _representative primitiveIndex
+];
+
+################
+####  Display
+################
+
+################
+####  Maintenance
+################
+
+
+################################################################
+####  Debug ModelObject SNFTask
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject SNFTask defineMethod: [ | description |
+    "Selector '" concat: (^self getStringTemporary: selector asString)
+    . concat: "' not found at "
+    . concat: recipientRepresentative whatAmI
+];
+
+################
+####  Display
+################
+
+################
+####  Maintenance
+################
+
+
+################################################################
+####  Debug ModelObject Suspension
+################################################################
+
+################
+####  Access
+################
+
+Debug ModelObject Suspension defineMethod: [ | caller |
+    suspendee
+];
+
+Debug ModelObject Suspension defineMethod: [ | canAbort |
+    _representative canAbort
+];
+
+Debug ModelObject Suspension defineMethod: [ | canResume |
+    _representative canResume
+];
+
+Debug ModelObject Suspension defineMethod: [ | consumer |
+    suspendee
+];
+
+Debug ModelObject Suspension defineMethod: [ | committed |
+    _committed elseIf: [
+	_representative doesGroundMagic isFalse || [ _representative committed ]
+    ] then: [ :_committed <- TRUE ]. else: [ FALSE ]
+];
+
+Debug ModelObject Suspension defineMethod: [ | mustAbort |
+    _representative mustAbort
+];
+
+Debug ModelObject Suspension defineMethod: [ | recipientAvailable |
+    suspendee recipientAvailable
+];
+
+Debug ModelObject Suspension defineMethod: [ | recipientRepresentative |
+    suspendee recipientRepresentative
+];
+
+Debug ModelObject Suspension defineMethod: [ | stateName |
+    ^self getStringConstant: _representative stateName
+];
+
+Debug ModelObject Suspension defineMethod: [ | statusName |
+    suspendee statusName
+];
+
+Debug ModelObject Suspension defineMethod: [ | suspendee |
+    _suspendee else: [
+	:_suspendee <- ^self getModelObject: _representative suspendee
+    ]
+];
+
+Debug ModelObject Suspension defineMethod: [ | top |
+    suspendee top
+];
+
+Debug ModelObject Suspension defineMethod: [ | waitingToAbort |
+    _representative waitingToAbort
+];
+
+Debug ModelObject Suspension defineMethod: [ | waitingToResume |
+    _representative waitingToResume
+];
+
+
+################
+####  Use
+################
+
+Debug ModelObject Suspension defineMethod: [ | abort |
+    _representative abort
+];
+
+Debug ModelObject Suspension defineMethod: [ | commit |
+    _representative commit
+];
+
+Debug ModelObject Suspension defineMethod: [ | resume |
+    _representative resume
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepDown |
+    _representative stepDown
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepIn |
+    _representative stepIn
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepUp |
+    _representative stepUp
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepOut |
+    _representative stepOut
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepOver |
+    _representative stepOver
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToCaller |
+    _representative stepToCaller
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToConsumer |
+    _representative stepToConsumer
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepIntoConsumer |
+    _representative stepIntoConsumer
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToEnd |
+    _representative stepToEnd
+];
+
+
+################
+####  Display
+################
+
+################
+####  Maintenance
+################
+
+Debug ModelObject Suspension defineMethod: [ | cleanupCheck |
+    _suspendee isntNA ifTrue: [ _suspendee cleanupMark ];
+    ^super cleanupCheck
+];
+
+Debug ModelObject Suspension defineMethod: [ | cleanupReset |
+    ^super cleanupReset;
+    committed ifFalse: [cleanupMark];
+    ^self
+];

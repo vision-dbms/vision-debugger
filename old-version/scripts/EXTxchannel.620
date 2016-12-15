@@ -1,0 +1,128 @@
+
+################
+####
+#### OpenVision XChannel
+####
+################
+
+OpenVision XChannel
+
+#----------------
+#  Display
+#----------------
+
+defineMethod:	# public
+[ | print |
+    whatAmI print; channel isntNA ifTrue: [ "{" print; channel print; "}" print]; ^self
+].
+
+
+#----------------
+#  Initialization
+#----------------
+
+defineMethod:	# public
+[ | setOpenVisionChannelTo: channelOrSpecification |
+    :channel <- channelOrSpecification asOpenVisionChannel;
+    channel setErrorOutputTo: (
+	ActiveChannel errorOutput else: ActiveChannel
+    );
+    channel isAServiceChannel ifTrue: [
+	channel setHandlerTo: ^self :acceptConnections;
+    ]. elseIf: [ channel isAStreamChannel ] then: [
+	parent isntNA ifTrue: [
+	    parent children at: channel put: ^self;
+	];
+	channel setHandlerTo: ^self :processCommands;
+    ];
+    ^self channel enableHandler;
+
+    ^self
+].
+
+
+#----------------
+#  Control
+#----------------
+
+defineMethod:	# public
+[ | close |
+    channel close;
+    parent isntNA ifTrue: [
+	parent children delete: channel;
+	^self rdelete
+    ] ifFalse: [;
+	:channel <- NA
+    ]
+].
+
+
+#----------------
+#  Output
+#----------------
+
+defineMethod:	# public
+[ | put: m |
+    m isString ifFalse: [
+	:m <- [m value] divertOutput
+    ];
+    children do: [^self put: ^my m];
+    channel isntNA && [channel isAStreamChannel] ifTrue: [
+	[ channel putString: m ] mvalue
+    ];
+    ^self
+].
+
+
+#----------------
+#  Input Processing
+#----------------
+
+defineMethod:	# protected
+[ | acceptConnections |
+    !self <- ^self;
+    !newChannel <- channel acceptConnection;
+    [ newChannel isReady ] whileTrue: [
+	^self createInstance do: [
+	    :parent <- ^my self;
+	]. setOpenVisionChannelTo: newChannel;
+	:newChannel <- channel acceptConnection
+    ];
+].
+
+defineMethod:	# protected
+[ | processCommands |
+    !input <- channel getLine;
+    [ input isntNA ] whileTrue: [
+        !directive <- input take: 1 . toUpper;
+	directive = "A" ifTrue: [
+	    :command <- command else: "". concat: (input drop: 1)
+	]. elseIf: [directive = "R"] then: [
+	    ^self put: [command evaluate];
+	    :command <- NA
+	]. elseIf: [directive = "F"] then: [
+	    :command <- NA
+	]. elseIf: [directive = "Q"] then: [
+	    channel endTransmission;
+	    :command <- NA
+	];
+	:command cleanStore;
+	:input <- channel getLine;
+	:input cleanStore;
+    ];
+    channel isAtEndOfInput ifTrue: [
+	^self close
+    ];
+].
+
+
+#----------------
+#  Properties (protected)
+#----------------
+
+defineFixedProperty: 'channel'.
+defineFixedProperty: 'command'.
+defineFixedProperty: 'parent'.
+
+defineProperty: 'children' withPrototype: IndexedList.
+;

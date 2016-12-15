@@ -1,0 +1,46 @@
+
+################################################################
+####  HighResolutionTime
+################################################################
+
+HighResolutionTime define: 'basicPrint' toBe: 129 asPrimitive;
+
+################################################################
+####  LowResolutionTime
+################################################################
+
+LowResolutionTime define: 'basicPrint' toBe: 129 asPrimitive;
+
+################################################################
+####  OpenVision Channel
+################################################################
+
+
+OpenVision Channel defineMethod: [ | autoMutex |
+    ^self setOptionToAutoMutex __optionValue != 0
+];
+
+OpenVision Channel defineMethod: [ | setAutoMutexOn |
+    ^self setOptionToAutoMutex setOptionValueTo: 1
+];
+
+OpenVision Channel defineMethod: [ | setAutoMutexOff |
+    ^self setOptionToAutoMutex setOptionValueTo: 0
+];
+
+OpenVision Channel defineMethod: [ | setOptionToAutoMutex |
+    ^self setOptionTo: Option AutoMutex
+];
+
+
+################################################################
+####  OpenVision Channel Option
+################################################################
+#                                                              #
+#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    #
+#    !!!!   WARNING: MUST BE RUN WITH 6.2.1 OR ABOVE   !!!!    #
+#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    #
+#                                                              #
+################################################################
+
+OpenVision Channel Option nameInstances: 16;

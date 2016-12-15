@@ -1,0 +1,86 @@
+
+################################################################
+####  Debug
+################################################################
+
+Debug defineMethod: [ | print |
+    ModelObject displayInfo;
+];
+
+################################################################
+####  Debug ModelObject
+################################################################
+
+Debug ModelObject defineMethod: [ | displayInfo |
+    !susList <- Suspension masterList;
+    !subList <- Subscription masterList;
+    susList count > 0 ifTrue: [
+	"+++ Suspensions:" printNL; susList do: [displayCaller];
+    ];
+    subList count > 0 ifTrue: [
+	susList count > 0 ifTrue: [
+	    "=" fill: 70 . printNL;
+	];
+	"+++ Subscriptions:" printNL; subList do: [displayInfo];
+    ];
+];
+
+################################################################
+####  Debug ModelObject CObject
+################################################################
+
+Debug ModelObject CObject define: '_difwIdentity'	toBe:  4 ;
+Debug ModelObject CObject define: '_difwInternalType'	toBe: 16 ;
+Debug ModelObject CObject define: '_difwStatus'		toBe: 10 ;
+
+
+################################################################
+####  Debug ModelObject Call
+################################################################
+
+Debug ModelObject Call defineMethod: [ | displayBasicDescription |
+    recipientSourceName send: [
+	^self != "expression" ifTrue: [
+	    "^" print; ^self print; " " print
+	] ifFalse: [ "... " print ] 
+    ];
+    description print;
+    ^self
+];
+
+Debug ModelObject Call defineMethod: [ | displayDescription |
+    caller displayDescriptionAt: ^self;
+    ^self
+];
+
+################################################################
+####  Debug ModelObject Task
+################################################################
+
+Debug ModelObject Task defineMethod: [ | displayDescriptionAt: call |
+    ^self description print; " " print; call displayBasicDescription;
+     ^self
+];
+
+
+################################################################
+####  Debug ModelObject Subscription
+################################################################
+
+Debug ModelObject Subscription defineMethod: [ | displayInfo |
+    ^super print; " to " print; description print; " of:" printNL; publisher displayInfo;
+    ^self
+];
+
+################################################################
+####  Debug ModelObject Suspension
+################################################################
+
+Debug ModelObject Suspension defineMethod: [ | displayInfoAndRecipients |
+    displayInfo;
+    recipientAvailable ifTrue: [
+	suspendee representativeList do: ["| " print; recipient printNL]
+    ];
+    "=" fill: 70 . printNL;
+    ^self
+];

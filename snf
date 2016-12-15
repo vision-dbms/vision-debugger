@@ -1,0 +1,64 @@
+Schema CD defineMethod: [ | getMessagesCloseTo: string |
+!choices <- class getMessagesX ;
+
+!pattern <- string ;
+!alts <- choices select: [ code contains: ^my pattern ] ;
+alts count = 0
+ifTrue:
+  [ :pattern <- "^" concat: string convertToCaseInsensitiveRegEx ;
+    :alts <- choices select: [ code contains: ^my pattern ] ;
+    alts count = 0
+    ifTrue:
+      [ :pattern <- pattern drop: 1 ;
+        :alts <- choices select: [ code contains: ^my pattern ] ;
+      ] ;
+  ] ;
+alts count = 0
+ifTrue:
+  [ :pattern <- 
+      [ string else: "" . toList
+        do: [ print ; ".{0,1}" print ;  ] ;
+      ] divertOutput ;
+    :alts <- choices select: [ code contains: ^my pattern ] ;
+    alts count = 0
+    ifTrue:
+      [ :pattern <- "^" concat:
+         [ string else: "" . convertToCaseInsensitiveRegEx toList
+           do: [ print; 
+                 ^self = "]" ifTrue: [ ".{0,1}" print ; ] ;
+               ] ;
+         ] divertOutput ;
+        :alts <- choices select: [ code contains: ^my pattern ] ;
+      ] ;
+  ] ;
+alts count = 0
+ifTrue:
+  [ :pattern <- 
+     [ string else: "" . toList linkElements
+       do: [ "[" print; print; next else: "" . print ; "]" print ] ;
+     ] divertOutput ;
+   :alts <- choices select: [ code contains: ^my pattern ] ;
+    alts count = 0
+    ifTrue:
+      [ :pattern <- "^" concat:
+          [ string else: "" . toList linkElements
+            do: [ "[" print ; 
+                  toLower print ; toUpper print ;
+                  prior isntNA
+                    ifTrue: [ prior toLower print ; prior toUpper print ] ;
+                  next isntNA
+                    ifTrue: [ next toLower print ; next toUpper print ] ;
+                  "]" print ; 
+                ] ;
+          ] divertOutput ;
+        :alts <- choices select: [ code contains: ^my pattern ] ;
+      ] ;
+  ] ;
+
+string print ; " | " print ; pattern print ; " | " print ; alts printNL ;
+alts sortDown: [ messageClassDescriptor number ] .
+groupedByString: [ code ] . send: [ groupList at: 1 ] 
+] ;
+
+Number classDescriptor getMessagesCloseTo: "PRNIT" .
+do: [ displayInfo ] ;

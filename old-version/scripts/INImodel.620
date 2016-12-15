@@ -1,0 +1,92 @@
+
+################################################################
+####  Class Definitions
+################################################################
+
+Debug createSubclass: "ModelObject" at: Debug;
+
+Debug ModelObject do: [
+    ^self	createSubclass: "CObject"	at: ^self;
+
+    CObject	createSubclass: "CUnit"		at: ^self;
+    CObject	createSubclass: "Suspension"	at: ^self;
+
+    CUnit	createSubclass: "Call"		at: ^self;
+    CUnit	createSubclass: "Task"		at: ^self;
+
+    Task	createSubclass: "BlockTask"	at: ^self;
+    Task	createSubclass: "PrimitiveTask"	at: ^self;
+    Task	createSubclass: "SNFTask"	at: ^self;
+    Task	createSubclass: "TopTask"	at: ^self;
+    Task	createSubclass: "UtilityTask"	at: ^self;
+];
+
+Debug ModelObject do: [
+    ^self define: 'IClass' toBe: ^my Dictionary new;
+
+    IClass at: "VBoundCall"			put: Call;
+    IClass at: "VEvaluationCall"		put: Call;
+    IClass at: "VPrimaryCall"			put: Call;
+    IClass at: "VSecondaryCall"			put: Call;
+
+    IClass at: "VBlockTask"			put: BlockTask;
+    IClass at: "VPrimitiveTask"			put: PrimitiveTask;
+    IClass at: "VListEnumerationController"	put: PrimitiveTask;
+    IClass at: "VMutexController"		put: PrimitiveTask;
+    IClass at: "VReadEvalPrintController"	put: PrimitiveTask;
+    IClass at: "VWhileTrueController"		put: PrimitiveTask;
+
+    IClass at: "VSNFTask"			put: SNFTask;
+
+    IClass at: "VChannelController"		put: TopTask;
+    IClass at: "VTopTask"			put: TopTask;
+
+    IClass at: "VUtilityTask"			put: UtilityTask;
+
+    IClass at: "VSuspension"			put: Suspension;
+];
+
+
+################################################################
+####  Property Definitions
+################################################################
+
+Debug ModelObject
+define: 'Index'			toBe: IndexedList new.
+
+define: 'StringConstants'	toBe: "" newAssociativeCluster.
+
+defineFixedProperty: '_cardinality'.
+defineFixedProperty: '_cmChecked'.
+defineFixedProperty: '_cmMarked'.
+defineFixedProperty: '_cmRetained'.
+defineFixedProperty: '_representative'.
+defineFixedProperty: '_typeName'.
+;
+
+Debug ModelObject CObject
+defineFixedProperty: '_top'.
+;
+
+Debug ModelObject CUnit
+defineFixedProperty: '_caller'.
+defineFixedProperty: '_consumer'.
+defineFixedProperty: '_depth'.
+defineFixedProperty: '_returnCaseName'.
+defineProperty:      '_suppliers' withPrototype: IndexedList.
+defineFixedProperty: '_terminated'.
+;
+
+Debug ModelObject Call
+defineFixedProperty: '_recipientSourceName'.
+;
+
+Debug ModelObject Task
+defineFixedProperty: '_call'.
+defineProperty:      '_subtasks' withPrototype: IndexedList.
+;
+
+Debug ModelObject Suspension
+defineFixedProperty: '_committed'.
+defineFixedProperty: '_suspendee'.
+;

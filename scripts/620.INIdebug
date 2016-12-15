@@ -1,0 +1,15 @@
+
+################################################################
+####  Classes
+################################################################
+
+CoreWorkspace define: 'QuietNA' toBe: (NA asPointerTo: NA basicSpecialized);
+
+QuietNA define: 'whatAmI' toBe: "QuietNA";
+Schema addClass: QuietNA;
+
+ToolKit createSubclass: "Debug";
+
+################################################################
+####  Properties
+################################################################

@@ -1,0 +1,175 @@
+
+################################################################
+####  Debug ModelObject CObject
+################################################################
+
+Debug ModelObject CObject defineMethod: [ | displayInfo |
+    ^self displayInfoAt: NA
+];
+
+Debug ModelObject CObject defineMethod: [ | displayInfoAt: call |
+    code print: _difwIdentity negated;
+    typeName drop: 1 . print: _difwInternalType;
+    cardinality print: _difwCardinality negated;
+
+    ^self displayState;
+
+    ^self statusName print: _difwStatus;
+
+    ^self recipientAvailable ifTrue: [
+	[^self recipientRepresentative print] divertOutput asLines at: 1
+    ] ifFalse: "". print: _difwSelf;
+
+    !indent <- _DIFW; [
+	call isNA ifTrue: [
+	    ^self displayDescription
+	] ifFalse: [
+	    ^self displayDescriptionAt: call
+	]
+    ] divertOutput asLines numberElements do: [
+	position > 1 ifTrue: [ "" print: ^my indent ];
+	"| " print;
+	printNL;
+    ];
+
+    newLine print;
+
+    ^self 
+];
+
+Debug ModelObject CObject defineMethod: [ | displayInfoHeading |
+    "UID" print: _difwIdentity;
+    "I-Type" print: _difwInternalType;
+    "Size" print: _difwCardinality;
+    "S" print: _difwState;
+    "Status" print: _difwStatus;
+    "^self" print: _difwSelf;
+    "Description" printNL;
+    "-" fill: (_DIFW + _difwDescriptionMin) asInteger . printNL;
+    ^self
+];
+
+Debug ModelObject CObject define: '_difwIdentity'	toBe:  9 ;
+Debug ModelObject CObject define: '_difwInternalType'	toBe: 24 ;
+Debug ModelObject CObject define: '_difwCardinality'	toBe:  7 ;
+Debug ModelObject CObject define: '_difwState'		toBe:  2 ;
+Debug ModelObject CObject define: '_difwStatus'	toBe: 10 ;
+Debug ModelObject CObject define: '_difwSelf'		toBe: 26 ;
+Debug ModelObject CObject define: '_difwDescriptionMin'toBe: 12 ;
+
+Debug ModelObject CObject defineMethod: [ | _DIFW |
+    (_difwIdentity + _difwInternalType + _difwState + _difwStatus + _difwCardinality + _difwSelf) asInteger
+];
+
+
+################
+
+Debug ModelObject CObject defineMethod: [ | displayDescription |
+    ^self
+];
+
+Debug ModelObject CObject defineMethod: [ | displayDescriptionAt: call |
+    ^self displayDescription
+];
+
+
+################################################################
+####  Debug ModelObject CUnit
+################################################################
+
+Debug ModelObject CUnit defineMethod: [ | displayDescription |
+    ^self description print;
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | displayState |
+    ^self stateName != "Running" ifTrue: [
+	^self stateName take: 1 . print: _difwState
+    ] ifFalse: [ ^self suspendCount print: _difwState negated];
+    ^self
+];
+
+Debug ModelObject CUnit defineMethod: [ | blockLinesBefore: prefixLineCount andAfter: suffixLineCount |
+    !blockLines <- [
+	!bpl <- ^self blockPrefix asLines numberElements;
+	bpl count > prefixLineCount ifTrue: [ " ..." printNL ];
+	bpl select: [ position >= ^my bpl count - ^my prefixLineCount ]. do: [printNL];
+
+	"_" fill: ^self blockIndent. drop: -1 . print; "^" printNL;
+
+	!bsl <- ^self blockSuffix asLines numberElements;
+	bsl select: [ position <= ^my suffixLineCount ]. do: [printNL];
+	bsl count > suffixLineCount ifTrue: [ " ..." printNL ];
+    ] divertOutput asLines numberElements;
+    blockLines select: [
+	position < ^my blockLines count || [ ^self count > 0 ]
+    ]
+];
+
+
+################################################################
+####  Debug ModelObject Call
+################################################################
+
+Debug ModelObject Call defineMethod: [ | displayCaller |
+    caller displayInfoAt: ^self;
+    ^self
+];
+
+Debug ModelObject Call defineMethod: [ | displayDescription |
+    recipientSourceName send: [
+	^self != "expression" ifTrue: [
+	    "^" print; ^self print; " " print
+	] ifFalse: [ "... " print ] 
+    ];
+    description print;
+    ^self
+];
+
+################################################################
+####  Debug ModelObject Task
+################################################################
+
+Debug ModelObject Task defineMethod: [ | displayCaller |
+    call isntNA ifTrue: [ call displayCaller ];
+    ^self
+];
+
+Debug ModelObject Task defineMethod: [ | displayDescriptionAt: call |
+    ^self description print; " " print; call displayDescription;
+    ^self
+];
+
+################################################################
+####  Debug ModelObject BlockTask
+################################################################
+
+Debug ModelObject BlockTask defineMethod: [ | displayDescription |
+    ^self blockLinesBefore: 5 andAfter: 5 . do: [ printNL ];
+    ^self
+];
+
+Debug ModelObject BlockTask defineMethod: [ | displayDescriptionAt: call |
+    call blockLinesBefore: 5 andAfter: 5 . do: [ printNL ];
+    ^self
+];
+
+
+################################################################
+####  Debug ModelObject Suspension
+################################################################
+
+Debug ModelObject Suspension defineMethod: [ | displayCaller |
+    suspendee displayInfoAt: NA;
+    ^self
+];
+
+Debug ModelObject Suspension defineMethod: [ | displayDescription |
+    suspendee displayDescription;
+    ^self
+];
+
+Debug ModelObject Suspension defineMethod: [ | displayState |
+    ^self stateName take: 1 . print: _difwState;
+    ^self
+];

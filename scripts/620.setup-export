@@ -1,0 +1,12 @@
+^global respondsTo: 'Debug'. ifFalse: [
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.setup-core" asFileContents evaluate
+];
+
+!xdbg;
+^global respondsTo: 'Debug'. ifTrue: [
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.INIexportws"	asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTexportws"	asFileContents evaluate;
+    "/mnt/lospatos/playground/Vision/debugger/scripts/620.EXTmodel-export"	asFileContents evaluate;
+
+    ^my :xdbg <- ExportWorkspace XDebug createInstance
+];

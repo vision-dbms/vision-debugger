@@ -1,0 +1,41 @@
+
+################
+####  Object Extensions
+################
+
+'define:toBePrimitive:' locateInDictionaryOf: Object. isNA ifTrue: [
+    Object
+    defineMethod:
+    [ | define: aSelector toBePrimitive: number |
+        ^self define: aSelector toBe: number asInteger asPrimitive
+    ].
+
+    defineMethod:
+    [ | define: aSelector toBePrimitive: number withControlValue: controlValue |
+        ^self define: aSelector toBePrimitive: number + controlValue * 65536
+    ].
+
+    defineMethod:
+    [| defineProperty: name withPrototype: prototype |
+        name locateOrAddInDictionaryOf: ^self . __locateOrAddDictionaryPropertySlot <- prototype; 
+        ^self hasSchema ifTrue: [^self classDescriptor flagForMessageUpdate]; 
+        ^self
+    ].
+    ;
+
+    Value
+    define: '__locateOrAddDictionaryPropertySlot' toBePrimitive: 77;
+
+    List asList, IndexedList, List, TimeSeries do: [
+        ^self deleteMessage: 'print'
+    ];
+
+    Collection
+    defineMethod:
+    [ | print |
+        ^self whatAmI print; " of " print; ^self count asString print; 
+        ^self
+    ];
+
+    "+++ Primitive Definition Extensions Added  +++" printNL;
+];

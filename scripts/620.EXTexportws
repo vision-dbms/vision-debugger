@@ -1,0 +1,230 @@
+
+################################################################
+####  ExportWorkspace
+################################################################
+
+################
+####  export:
+################
+
+ExportWorkspace defineMethod: [ | export: aBlock |
+    !workspace <- ^self;
+    ^local extendBy: [ !ExportWorkspace <- ^my workspace ]. asLocalContextFor: aBlock
+];
+
+
+################
+####  Object Export
+################
+
+ExportWorkspace define: '_InTupleMode_'		toBe: FALSE;
+
+ExportWorkspace define: 'ListOpenBracket'	toBe: "(";
+ExportWorkspace define: 'ListElementSeparator'	toBe: " ,";
+ExportWorkspace define: 'ListCloseBracket'	toBe: ")";
+
+ExportWorkspace define: 'TupleOpenBracket'	toBe: "[";
+ExportWorkspace define: 'TupleMemberSeparator'	toBe: " ,";
+ExportWorkspace define: 'TupleTagValueSeparator'toBe: " : ";
+ExportWorkspace define: 'TupleCloseBracket'	toBe: "]";
+
+ExportWorkspace defineMethod: [ | exportNumber: number |
+    number print;
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | exportString: string |
+    string doubleQuote print;
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | exportList: list |
+    ^self ListOpenBracket printNL;
+    list numberElements do: [
+	^self super exportValue;
+	position < ^my list count ifTrue: [^my ListElementSeparator printNL] ifFalse: [ newLine print ];
+    ];
+    ^self ListCloseBracket printNL;
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | beginTupleFor: object |
+    ^self TupleOpenBracket printNL;
+    ^self basicExtend: [ !object <- ^my object; !_InTupleMode_ <- !firstMember <- TRUE ]
+];
+
+ExportWorkspace defineMethod: [ | exportMember: tag withValue: accessBlock |
+    ^self _InTupleMode_ ifTrue: [
+	^self firstMember ifTrue: [
+	    ^self :firstMember <- FALSE
+	] ifFalse: [
+	    ^self TupleMemberSeparator printNL
+	];
+	tag print; ^self TupleTagValueSeparator print; ^self object send: accessBlock. exportValue
+    ];
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | exportMember: tag withValue: accessBlock if: testBlock |
+    ^self _InTupleMode_ && [ ^self object send: testBlock. isTrue ]ifTrue: [
+	^self exportMember: tag withValue: accessBlock
+    ];
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | endTuple |
+    ^self _InTupleMode_ ifTrue: [
+	^self _exportedObjects add: ^self object;
+	^self _endTuple
+    ] ifFalse: [ ^self ]
+];
+
+ExportWorkspace defineMethod: [ | endValueTuple |
+    ^self _InTupleMode_ ifTrue: [
+	^self _endTuple
+    ] ifFalse: [ ^self ];
+];
+
+ExportWorkspace defineMethod: [ | _endTuple |
+    ^self _exportedReferences add: ^self object;
+    ^self TupleCloseBracket printNL;
+
+#----------------------------------------------------------------#
+# '^self super' returns the containing tuple builder if present. #
+#----------------------------------------------------------------#
+
+    ^self super
+];
+
+
+################
+####  Self Export
+################
+
+ExportWorkspace defineMethod: [ | exportValue |
+    ^self ListOpenBracket printNL;
+    !firstPass <- TRUE;
+    [ _exportedReferences count > _exportedObjects count ] whileTrue: [
+	firstPass ifTrue: [ :firstPass <- FALSE ] ifFalse: [
+	    ^self ListElementSeparator printNL
+	];
+	!list <- _exportedReferences select: [ ^my _exportedObjects at: ^self. isNA] . numberElements;
+	list do: [
+	    ^self super export;
+	    position < ^my list count ifTrue: [^my ListElementSeparator printNL] ifFalse: [ newLine print ];
+	];
+    ];
+    ^self ListCloseBracket printNL;
+    ^self
+];
+
+
+################
+####  Export List Management
+################
+
+ExportWorkspace defineMethod: [ | resetExportedObjects |
+    _exportedObjects do: [^my _exportedObjects delete: ^self];
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | resetExportedReferences |
+    _exportedReferences do: [^my _exportedReferences delete: ^self];
+    ^self
+];
+
+ExportWorkspace defineMethod: [ | resetExports |
+    resetExportedObjects
+    resetExportedReferences
+];
+
+
+################################################################
+####  ExportWorkspace XDebug
+################################################################
+
+################
+####  export:
+################
+
+ExportWorkspace XDebug defineMethod: [ | export: block |
+    ^super export: [
+	!result;
+	^self beginTupleFor: ^self.
+	    exportMember: "_VALUE"	withValue: [ ^my :result <- ^my block value ].
+	    exportMember: "_CLOSURE"	withValue: [ ^self ].
+	endTuple;
+	result
+    ]
+];
+
+
+################
+####  Object Export
+################
+
+ExportWorkspace XDebug define: 'ListOpenBracket'	toBe: "+[";
+ExportWorkspace XDebug define: 'ListCloseBracket'	toBe: "]";
+
+ExportWorkspace XDebug define: 'TupleOpenBracket'	toBe: "+{";
+ExportWorkspace XDebug define: 'TupleTagValueSeparator'	toBe: " => ";
+ExportWorkspace XDebug define: 'TupleCloseBracket'	toBe: "}";
+
+ExportWorkspace XDebug defineMethod: [ | exportString: s |
+    s singleQuote print;
+    ^self
+];
+
+
+################################################################
+####  Object
+################################################################
+
+Object defineMethod: [ | CurrentExportWorkspace |
+    ^local ExportWorkspace
+];
+
+Object defineMethod: [ | export |
+    ^self exportValue
+];
+
+Object defineMethod: [ | exportValue |
+    CurrentExportWorkspace exportString: [^self print] divertOutput;
+    ^self
+];
+
+################################################################
+####  Number
+################################################################
+
+Number defineMethod: [ | exportValue |
+    CurrentExportWorkspace exportNumber: ^self;
+    ^self
+];
+
+################################################################
+####  String
+################################################################
+
+String defineMethod: [ | exportValue |
+    CurrentExportWorkspace exportString: ^self;
+    ^self
+];
+
+String defineMethod: [ | doubleQuote |		# translates " -> \"
+    "\"" concat: (^self translate: "\"" to: "\\""). concat: "\""
+];
+
+String defineMethod: [ | singleQuote |		# translates ' -> \'
+    "'" concat: (^self translate: "'" to: "\\'"). concat: "'"
+];
+
+
+################################################################
+####  List
+################################################################
+
+List defineMethod: [ | exportValue |
+    CurrentExportWorkspace exportList: ^self;
+    ^self
+];

@@ -1,0 +1,153 @@
+
+################################################################
+####  Block
+################################################################
+
+Block defineMethod: [ | stepInto |
+    ^self bgSus asDebugModelObject stepInto
+];
+
+
+################################################################
+####  Debug ModelObject CUnit
+################################################################
+
+################
+####  Step Plumbing
+################
+
+Debug ModelObject CUnit defineMethod: [ | contextEntryStep |
+    ^self onContextEntrySuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextExitStep |
+    ^self onContextExitSuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | contextStepStep |
+    ^self onContextStepSuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitChildEntryStep |
+    ^self onUnitChildEntrySuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitExteriorChildEntryStep |
+    ^self onUnitExteriorChildEntrySuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitInteriorChildEntryStep |
+    ^self onUnitInteriorChildEntrySuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitEntryStep |
+    ^self onUnitEntrySuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitExitStep |
+    ^self onUnitExitSuspension: [ | :sus | ]. setSingleUseOn
+];
+
+Debug ModelObject CUnit defineMethod: [ | unitStepStep |
+    ^self onUnitStepSuspension: [ | :sus | ]. setSingleUseOn
+];
+
+
+################
+
+Debug ModelObject CUnit defineMethod: [ | unitNextStep |
+    ^self mvalue: [
+	_nextStep else: [
+	    :_nextStep <- ^self unitStepSubscription setSingleUseOn
+	        onSuspension: [ | :sus | ]
+		onExpiration: [ ^self mvalue: [ :_nextStep <- NA ] ]
+	]
+    ]
+];
+
+
+################################################################
+####  Debug ModelObject Call
+################################################################
+
+Debug ModelObject Call defineMethod: [ | nextExpressionStep |
+    caller unitNextStep
+];
+
+Debug ModelObject Call defineMethod: [ | nextMessageStep |
+    consumer unitNextStep
+];
+
+
+################################################################
+####  Debug ModelObject Task
+################################################################
+
+Debug ModelObject Task defineMethod: [ | nextExpressionStep |
+    unitNextStep
+];
+
+Debug ModelObject Task defineMethod: [ | nextMessageStep |
+    unitExteriorChildEntryStep
+];
+
+
+################################################################
+####  Debug ModelObject Suspension
+################################################################
+
+################
+####  Use
+################
+
+Debug ModelObject Suspension defineMethod: [ | nextExpression |
+    !step <- suspendee nextExpressionStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | nextMessage |
+    !step <- suspendee nextMessageStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepDown |
+    !step <- suspendee unitExteriorChildEntryStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepInto |
+    !step <- suspendee onUnitChildEntrySuspension: [ | :childSuspension |
+	childSuspension suspendee isBlockTask ifFalse: [
+	    childSuspension stepInto
+	]
+    ]. setSingleUseOn;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepOver |
+    !step <- suspendee unitNextStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToCaller |
+    !step <- suspendee caller unitNextStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToConsumer |
+    !step <- suspendee consumer unitNextStep;
+    resume;
+    step
+];
+
+Debug ModelObject Suspension defineMethod: [ | stepToExit |
+    !step <- suspendee unitExitStep;
+    resume;
+    step
+];
