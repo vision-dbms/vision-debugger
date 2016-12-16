@@ -1,4 +1,4 @@
-"/mnt/lospatos/playground/Vision/debugger/scripts/621.setup-core" asFileContents evaluate;
+"debugger/scripts/621.setup-core" asFileContents evaluate;
 
 ################################################################
 
