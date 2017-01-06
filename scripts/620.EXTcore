@@ -57,6 +57,7 @@ List defineMethod: [ | delete: position |
 
 Object define: 'basicDo:with:' toBePrimitive: 37;
 
+#--- remove these since they are in the bootstrap now
 Object defineMethod: [ | doOnce: block |
     !current <- ^current;
     !date   <- ^date;

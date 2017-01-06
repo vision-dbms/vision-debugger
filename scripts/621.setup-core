@@ -1,30 +1,30 @@
 Object respondsTo: 'define:toBePrimitive:withControlValue:'. ifFalse: [
-    "debugger/scripts/EXTcore6xx.dp" asFileContents do: [isString ifTrue: [evaluate]]
+    "scripts/EXTcore6xx.dp" asFileContents do: [isString ifTrue: [evaluate]]
 ];
 
 Object respondsTo: 'define:toBePrimitive:withControlValue:'. ifTrue: [
-    "debugger/scripts/620.EXTcore"		asFileContents evaluate;
-    "debugger/scripts/621.EXTcore"		asFileContents evaluate;
+    "scripts/620.EXTcore"		asFileContents evaluate;
+    "scripts/621.EXTcore"		asFileContents evaluate;
 
-    "debugger/scripts/620.EXTextend"		asFileContents evaluate;
-    "debugger/scripts/620.EXTmutex"		asFileContents evaluate;
+    "scripts/620.EXTextend"		asFileContents evaluate;
+    "scripts/620.EXTmutex"		asFileContents evaluate;
 
-    "debugger/scripts/620.INIdebug"		asFileContents evaluate;
-    "debugger/scripts/620.EXTdebug"		asFileContents evaluate;
+    "scripts/620.INIdebug"		asFileContents evaluate;
+    "scripts/620.EXTdebug"		asFileContents evaluate;
 
-    "debugger/scripts/621.EXTsnf"		asFileContents evaluate;
+    "scripts/621.EXTsnf"		asFileContents evaluate;
 
-    "debugger/scripts/620.INImodel"		asFileContents evaluate;
-    "debugger/scripts/621.INImodel"		asFileContents evaluate;
+    "scripts/620.INImodel"		asFileContents evaluate;
+    "scripts/621.INImodel"		asFileContents evaluate;
 
-    "debugger/scripts/620.EXTmodel"		asFileContents evaluate;
-    "debugger/scripts/621.EXTmodel"		asFileContents evaluate;
+    "scripts/620.EXTmodel"		asFileContents evaluate;
+    "scripts/621.EXTmodel"		asFileContents evaluate;
 
-    "debugger/scripts/620.EXTmodel-display"	asFileContents evaluate;
-    "debugger/scripts/621.EXTmodel-display"	asFileContents evaluate;
-    "debugger/scripts/621.EXTmodel-step"	asFileContents evaluate;
+    "scripts/620.EXTmodel-display"	asFileContents evaluate;
+    "scripts/621.EXTmodel-display"	asFileContents evaluate;
+    "scripts/621.EXTmodel-step"	asFileContents evaluate;
 
-    "debugger/scripts/621.EXTbp"		asFileContents evaluate;
+    "scripts/621.EXTbp"		asFileContents evaluate;
 
     Schema processAllMessages;
 ] ifFalse: [

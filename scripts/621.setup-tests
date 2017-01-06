@@ -1,42 +1,10 @@
-"debugger/scripts/621.setup-core" asFileContents evaluate;
+"scripts/621.setup-core" asFileContents evaluate;
 
 ################################################################
 
-^self defineMethod: [ | nextExpression |
-    suspensions do: [ nextExpression ];
-];
-
-^self defineMethod: [ | nextMessage |
-    suspensions do: [ nextMessage ];
-];
-
-^self defineMethod: [ | abort |
-    suspensions do: [ abort ];
-];
-
-^self defineMethod: [ | commit |
-    suspensions do: [ commit ];
-];
-
-^self defineMethod: [ | resume |
-    suspensions do: [ resume ];
-];
-
-^self defineMethod: [ | subscriptions |
-    Debug ModelObject Subscription masterList
-];
-
-^self defineMethod: [ | suspensions |
-    Debug ModelObject Suspension masterList
-];
-
-Debug defineMethod: [ | object: x | ModelObject Index at: x ];
-
-
-################################################################
-
-Block defineMethod: [ | debug |
-    ^self bgSus asDebugModelObject send: [
+Debug defineMethod: [ | run: block |
+"in debug for block" printNL ;
+    block bgSus asDebugModelObject send: [
 	!suspend <- [ | :sus |
 	    "+++ " print; sus displayInfo;
 	];
@@ -44,6 +12,15 @@ Block defineMethod: [ | debug |
 	suspendee onContextFaultSuspension: suspend;
 	suspendee onContextAccessSuspension: suspend;
 	suspendee onContextInterruptSuspension: suspend;
-	^self resume
+	resume
     ]
 ];
+
+Debug defineMethod: [ | getSuspension |
+    ModelObject Suspension masterList
+      basicSend: [ count = 1 ifTrue: [ ^self at: 1 ] else: [ ^self ] ]
+] ;
+
+Debug defineMethod: [ | object: x | ModelObject Index at: x ];
+
+
