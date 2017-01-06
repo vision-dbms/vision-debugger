@@ -1,9 +1,0 @@
-
-################
-####  QuietNA
-################
-
-QuietNA defineMethod: [ | handleSNF: suspension |
-    suspension do: [suspendee dismiss; resume];
-    ^self
-];
