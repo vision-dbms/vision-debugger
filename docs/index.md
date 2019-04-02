@@ -70,17 +70,17 @@ To start, set a breakpoint in one or more methods.  Here we are
 telling the engine to suspend execution whenever the <i>initialize</i>
 method in the class <b>Company</b> is encountered.
 
-<blockquote><pre>
+```
 Input:
 Company setBreakInMethod: 'initialize' . printNL ;
 
 Output:
 TRUE
-</pre></blockquote>
+```
 
 Now run your Vision code under a debugger process:
 
-<blockquote><pre>
+```
 Input:
 Debug run:
   [ 
@@ -98,13 +98,13 @@ in debug for block
                                                      | ^self
 
 
-</pre></blockquote>
+```
 
 The Vision engine suspends execution when it encounters the
 <i>initialize</i> method.  At this point, you can view the stack of
 caller methods that led to this suspension:
 
-<blockquote><pre>
+```
 Input:
 Debug getSuspension  suspendee displayCallers ;
 
@@ -143,8 +143,7 @@ Output:
 
 2   TopTask         1      R Running                 | <---Top---> ... value
 
-
-</pre></blockquote>
+```
 This display output is similar to the output we see when we turn on
 the verbose selector-not-found option.  The difference is that we are
 actually suspended within the Vision program and are free to poke
@@ -158,13 +157,13 @@ callers, by using the messages <i>self</i>, <i>current</i>, and
 
 Let's look at what information is
 available about the current instance being initialized:
-<blockquote><pre>
+```
 Input:
 Debug getSuspension suspendee current do: [ whatAmI print: 20 ; code printNL ] ;
 
 Output:
 Company             C1
-</pre></blockquote>
+```
 We can see that the current class we are operating within is
 <b>Company</b> and that our current instance has a value for
 <i>code</i> of "C1".
@@ -176,22 +175,22 @@ was in turn called from within an execution that knows about the value
 of <i>^my keys</i>.  We can look at this value from with the
 suspension using:
 
-<blockquote><pre>
+```
 Input:
 Debug getSuspension suspendee caller caller my keys printNL ;
 Output:
 C1
-</pre></blockquote>
+```
 
 Let's continue looking at the information
 available about the current instance being initialized:
-<blockquote><pre>
+```
 Input:
 Debug getSuspension suspendee current do: [ code print: 20 ; name printNL ] ;
 
 Output:
 C1                        NA 
-</pre></blockquote>
+```
 We can see that the code property has already been initialized to the
 string "C1", but the name property is still NA.
 
@@ -287,7 +286,7 @@ at the point right after the <i>name</i> property has been set.  Before we
 finish executing the method, let's intervene and change the value of
 name to something else:
 
-<blockquote><pre>
+```
 
 Input:
 Debug getSuspension suspendee current setNameTo: "THIS IS MY REAL NAME" ;
@@ -315,36 +314,36 @@ Output:
                                                      | ^self
 
 
-</pre></blockquote>
+```
 Now that we are done poking around inside the execution, let the
 program finish to completion:
 
-<blockquote><pre>
+```
 
 Input:
 Debug getSuspension resume ;
 
 Output:
 
-</pre></blockquote>
+```
 Check that there are no more suspensions in the queue:
 
-<blockquote><pre>
+```
 Input:
 Debug getSuspension 
 Output:
 List of 0
 
-</pre></blockquote>
+```
 
 The debugger is no longer active.  The name change that we made while
 execution was suspended is still in effect:
-<blockquote><pre>
+```
 Input:
 Company masterList do: [ code print: 20 ; name printNL ] ;
 Output:
 C1                  THIS IS MY REAL NAME
-</pre></blockquote>
+```
 
 ## Selector Not Founds Work Too
 
@@ -354,7 +353,7 @@ control of the <b>Debug</b> class, the engine will automically suspend
 when it encounters a <i>Selector Not Found</i> error as well. 
 
 For example, define a new method with a typical typo in it and run it in debugger mode:
-<blockquote><pre>
+```
 Input:
 Integer defineMethod: [ | printit |
 "this is the number " conact: asSelf . printNL ;
@@ -386,24 +385,24 @@ Output:
 57  TopTask         1      R Running                 | <---Top---> ... value
 
 
-</pre></blockquote>
+```
 
 That was almost too easy.  The culprit misspelled <i>conact:</i> is
 identified and all we need to do is fix the code and we'll be set.
 
-<blockquote><pre>
+```
 Input:
 Integer defineMethod: [ | printit |
 "this is the number " concat: asSelf . printNL ;
 ] ;
 
 Output:
-</pre></blockquote>
+```
 The debugger in this case told us basically what the verbose 'snf'
 option tells us.  Now that the method has been fixed, let's run it
 from within a list that includes different subclasses:
 
-<blockquote><pre>
+```
 Input:
 Debug run:
 [ 3 sequence,10.1,5,20.2 do: [ printit ] ;
@@ -434,7 +433,7 @@ Output:
 97  PrimitiveTask   1      R Running   [             | <EvaluateForValue> ^current value
 
 85  TopTask         1      R Running                 | <---Top---> ... value
-</pre></blockquote>
+```
 
 We have suspended execution because of the selector <i>printit</i>.
 In this case though, we have a little more information to review.
@@ -445,17 +444,15 @@ defined for the <b>Double</b> class. We can confirm which instances
 are problematic by running:
 
 
-<blockquote><pre>
+```
 Input:
 Debug getSuspension suspendee self instanceList  do: [ printNL ] ;
 Output:
     10.10
     20.20
-</pre></blockquote>
+```
 
 These examples are just the tip of the proverbial debug iceberg.  The
 idea that we can stop and explore the state of a Vision execution
 interactively is intriguing and opens up many new avenues to explore
 and ponder.
-
-## Thoughts to Ponder
